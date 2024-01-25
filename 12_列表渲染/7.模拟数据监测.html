@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let data = {
+            name:"尚硅谷",
+        }
+        // Object.defineProperty(data,"name",{
+        //     get(){
+        //         return data.name
+        //     },
+        //     set(val){
+        //         data.name = val
+        //     }
+        // })
+        // 实例化监视对象
+        const obs = new Observer(data)
+        // 准备一个vm
+        let vm = {}
+        vm._data = data = obs
+        // 监视实例对象构造函数
+        function Observer(obj){
+            // 汇总对象所有属性形成数组
+            const keys = Object.keys(obj)
+            // 遍历
+            keys.forEach((k)=>{
+                Object.defineProperty(this,k,{
+                    get(){
+                        return obj[k]
+                    },
+                    set(val){
+                        obj[k] = val
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root" :x="n">
+        <h2>当前n的值是:{{n}}</h2>
+        <button @click="add">点我n+1</button>
+        <button @click="bye">点位销毁vm</button>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false
+
+    new Vue({
+        el: "#root",
+        //   会替换掉所有容器包括root根节点
+        //   替换完之后进行render()渲染
+        //   template:`<div>
+        //                 <h2>当前n的值是:{{n}}</h2>
+        //                 <button @click="add">点我n+1</button>
+        //             </div>`,
+        data: {
+            n: 1,
+        },
+        watch:{
+            n(){
+                console.log("n被改变了");
+            }
+        },
+        methods: {
+            add(){
+                this.n++
+            },
+            bye(){
+                this.$destroyed()
+            },
+        },
+        beforeCreate() {
+            console.log("beforeCreate");
+            // console.log(this);
+        },
+        created() {
+            console.log("created");
+        },
+        beforeMount() {
+            console.log("befoteMount");
+            // console.log(this);
+            // document.querySelector("h2").innerText = "哈哈"
+            // debugger
+        },
+        mounted() {
+            console.log("mounted")
+            // console.log(this)
+            // debugger
+            // document.querySelector("h2").innerText = "白学了"
+        },
+        beforeUpdate() {
+            // 数据页面不同步
+            console.log("beforeUpdate");
+            console.log(this.n);
+        },
+        updated() {
+            // 数据页面保持同步
+            console.log("updated");
+            console.log(this);
+            // debugger
+        },
+        // vm.$destroyed()发生时回调
+        beforeDestroy() {
+            console.log(this.n);
+            // 关闭定时器
+            // 取消订阅消息
+            // 解绑自定义事件
+            // 其他操作能发生但结果不奏效
+            this.add()
+        },
+        destroyed() {
+            console.log(this);
+        },
+    })
+</script>
+
+</html>

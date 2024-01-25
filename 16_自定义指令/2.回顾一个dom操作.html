@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">点我创建一个输入框</button>
+    <script>
+        const btn = document.getElementById("btn")
+        btn.onclick(()=>{
+            const input = document.createElement("input")
+
+            input.className = "demo"
+            input.value = 99
+            input.onclick = ()=>{alert(1)}
+            document.body.appendChild(input)
+            // 获取焦点事件只能在元素存在于页面时才能发生，元素不存在页面时无效
+            input.focus()
+            console.log(input.parentElement);
+        })
+    </script>
+</body>
+</html>

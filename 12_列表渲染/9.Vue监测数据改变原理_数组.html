@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>学校名称:{{name}}</h2>
+        <h2>学校地址:{{address}}</h2>
+        <button @click="addLeader">点我显示校长</button>
+        <h2 v-if="school.leader">校长:{{school.leader}}</h2>
+        <hr />
+        <h2>姓名:{{student.name}}</h2>
+        <button @click="addSex">点我显示性别</button>
+        <h2 v-if="student.sex">性别:{{student.sex}}</h2>
+        <h2>年龄:真实{{student.age.rAge}},对外{{student.age.sAge}}</h2>
+        <h2>朋友们</h2>
+        <ul>
+            <li v-for="(f,index) in student.friends" :key="index">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false
+    const vm = new Vue({
+        el: "#root",
+        data: {
+            school: {
+                name: "尚硅谷",
+                address: "北京",
+                leader: ""
+            },
+            student: {
+                name: "tom",
+                age: {
+                    rAge: 40,
+                    sAge: 20,
+                },
+                friends: [
+                    { name: "jenny", age: 35 },
+                    { name: "tony", age: 36 }
+                ],
+                hobby:["抽烟","喝酒","洗脚"],
+            }
+        },
+        methods: {
+            addSex() {
+                // Vue.set(this.student, "sex", "男")
+                this.$set(this.student, "sex", "女")
+            },
+            addLeader() {
+                // Vue.set(this.school, "leader", "王洋")
+                this.$set(this.school, "leader", "王洋")
+            }
+        },
+    })
+</script>
+
+</html>
